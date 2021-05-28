@@ -3,6 +3,7 @@ import {StyleSheet, TextInput, FlatList} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {Box} from 'react-native-design-utility';
 import {useLazyQuery} from '@apollo/react-hooks';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import {theme} from '../constants/theme';
 import RowItem from '../components/RowItem';
@@ -10,6 +11,7 @@ import searchQuery from '../graphql/query/searchQuery';
 import {SearchQuery, SearchQueryVariables} from '../types/graphql';
 import MessageScreen from '../components/MessageScreen';
 import LoadingScreen from '../components/LoadingScreen';
+import {RectButton} from 'react-native-gesture-handler';
 
 let hasNotch = DeviceInfo.hasNotch();
 const searchMessage = 'No Podcasts, please search something';
@@ -29,15 +31,25 @@ const SearchScreen = ({}) => {
   return (
     <Box f={1} bg="white" paddingTop={hasNotch ? 40 : 0}>
       <Box h={50} w="100%" my="sm" px="sm">
-        <TextInput
-          style={styles.input}
-          placeholder="Search Podcast"
-          selectionColor={theme.color.blueLight}
-          onChangeText={setTerm}
-          autoCorrect={false}
-          onSubmitEditing={onSearch}
-          value={term}
-        />
+        <Box
+          dir="row"
+          alignItems="center"
+          bg="greyLighter"
+          pl={10}
+          borderRadius="sm">
+          <RectButton onPress={onSearch} activeOpacity={0}>
+            <FeatherIcon name="search" size={20} color={theme.color.greyDark} />
+          </RectButton>
+          <TextInput
+            style={styles.input}
+            placeholder="Search Podcast"
+            selectionColor={theme.color.blueLight}
+            onChangeText={setTerm}
+            autoCorrect={false}
+            onSubmitEditing={onSearch}
+            value={term}
+          />
+        </Box>
       </Box>
       {error ? (
         <MessageScreen text={error.message} />
@@ -64,6 +76,7 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     flex: 1,
+
     backgroundColor: theme.color.greyLighter,
     borderRadius: 10,
     paddingHorizontal: theme.space.sm,
