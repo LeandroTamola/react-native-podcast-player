@@ -1,36 +1,27 @@
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {Box, Text} from 'react-native-design-utility';
+import PodcastImage from '../../components/PodcastImage';
 import {theme} from '../../constants/theme';
 import {SearchQuery_search} from '../../types/graphql';
 
 interface HeaderProps {
-  data: SearchQuery_search;
+  podcastData: SearchQuery_search;
 }
 
-const Header = ({data}: HeaderProps) => {
+const Header = ({podcastData}: HeaderProps) => {
   return (
     <Box dir="row" alignItems="center" pb="md">
-      <Box
-        h={100}
-        w={100}
-        bg="blueLight"
-        radius={10}
-        mr={10}
-        style={styles.imgContainer}>
-        {data.thumbnail && (
-          <Image source={{uri: data.thumbnail}} style={styles.image} />
-        )}
-      </Box>
+      <PodcastImage image={podcastData.thumbnail} />
       <Box f={1}>
         <Text numberOfLines={1} size="md" bold>
-          {data.podcastName}
+          {podcastData.podcastName}
         </Text>
         <Text size="xs" mb="xs">
-          {data.artist}
+          {podcastData.artist}
         </Text>
         <Text size="xs" color="blueLight">
-          {data.genres}
+          {podcastData.genres}
         </Text>
       </Box>
     </Box>
@@ -38,15 +29,3 @@ const Header = ({data}: HeaderProps) => {
 };
 
 export default Header;
-
-const styles = StyleSheet.create({
-  imgContainer: {
-    overflow: 'hidden',
-    borderColor: theme.color.blueLight,
-    borderWidth: 2,
-  },
-
-  image: {
-    flex: 1,
-  },
-});
