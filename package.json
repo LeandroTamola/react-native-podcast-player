@@ -30,6 +30,8 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.3.0",
     "react-native-status-bar-height": "^2.6.0",
+    "react-native-swift": "^1.2.3",
+    "react-native-track-player": "^1.2.7",
     "react-native-vector-icons": "^8.1.0"
   },
   "devDependencies": {
@@ -63,5 +65,6 @@
       "json",
       "node"
     ]
-  }
+  },
+  "isSwift": true
 }

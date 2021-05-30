@@ -7,7 +7,6 @@ interface RowEpisodeProps {
 }
 
 const RowEpisode = ({item}: RowEpisodeProps) => {
-  console.log(item);
   return (
     <Box p="xs">
       <Text size="xs" color="grey" bold>
