@@ -1,19 +1,30 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  BottomTabBar,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import LibraryScreen from '../Screens/LibraryScreen';
 import ListenNowScreen from '../Screens/ListenNowScreen';
 import SearchStackNavigator from './SearchStackNavigator';
 import {theme} from '../constants/theme';
+import MiniPlayer from '../components/MiniPlayer';
 
 const MainTab = createBottomTabNavigator();
 
 const ICON_SIZE = 20;
 const MainTabNavigator = () => {
   return (
-    <MainTab.Navigator tabBarOptions={{activeTintColor: theme.color.blueLight}}>
+    <MainTab.Navigator
+      tabBar={tabsProps => (
+        <>
+          <MiniPlayer />
+          <BottomTabBar {...tabsProps} />
+        </>
+      )}
+      tabBarOptions={{activeTintColor: theme.color.blueLight}}>
       <MainTab.Screen
         options={{
           title: 'Listen Now',
