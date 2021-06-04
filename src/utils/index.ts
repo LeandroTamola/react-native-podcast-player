@@ -1,5 +1,7 @@
+import ImageColors from 'react-native-image-colors';
+
 export const removeHtmlTags = (string: string) => {
-  return string.trim().replace(/<[^>]*>/g, '');
+  return string.replace(/<[^>]*>/g, '').trim();
 };
 
 export const getDay = (string: string) => {
@@ -8,5 +10,8 @@ export const getDay = (string: string) => {
 
 export const getDuration = (string: string) => {
   const duration = string.split(':');
-  return `${+duration[0]}hrs. ${+duration[1]}min`;
+  if (duration.length > 1) {
+    return `${+duration[0]}hrs. ${+duration[1]}min`;
+  }
+  return `${+duration[0].slice(0, 2)}min`;
 };

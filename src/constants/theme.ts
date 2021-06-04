@@ -30,7 +30,7 @@ const color = {
   purpleDarkest: '#4a148c',
   purpleDarker: '#6a1b9a',
   purpleDark: '#7b1fa2',
-  purple: '#9c27b0',
+  purple: '#6514d5',
   purpleLight: '#ab47bc',
   purpleLighter: '#ba68c8',
   purpleLightest: '#ce93d8',

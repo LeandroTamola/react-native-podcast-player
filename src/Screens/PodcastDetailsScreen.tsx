@@ -1,6 +1,6 @@
 import {RouteProp, useRoute} from '@react-navigation/core';
-import React, {useEffect} from 'react';
-import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
+import React from 'react';
+import {FlatList, StyleSheet} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {Box, Text} from 'react-native-design-utility';
 
@@ -63,7 +63,7 @@ const PodcastDetailsScreen = () => {
             Episodes
           </Text>
         }
-        renderItem={item => <RowEpisode item={item.item} />}
+        renderItem={item => <RowEpisode item={item.item} {...{podcastData}} />}
         ItemSeparatorComponent={() => <Box w="100%" h={1} bg="greyLighter" />}
         keyExtractor={(_, index) => index.toString()}
       />
