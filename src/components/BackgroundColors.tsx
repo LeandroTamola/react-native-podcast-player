@@ -19,32 +19,36 @@ export default function BackgroundColors({image, children}: any) {
   const [loading, setLoading] = useState(true);
 
   const fetchColors = useCallback(async () => {
-    const result = await ImageColors.getColors(image, {
-      fallback: '#000000',
-      quality: 'low',
-      pixelSpacing: 5,
-      cache: true,
-    });
+    try {
+      const result = await ImageColors.getColors(image, {
+        fallback: '#000000',
+        quality: 'low',
+        pixelSpacing: 5,
+        cache: true,
+      });
 
-    if (result.platform === 'android') {
-      setColors({
-        colorOne: {value: result.average!, name: 'average'},
-        colorTwo: {value: result.dominant!, name: 'dominant'},
-        colorThree: {value: result.vibrant!, name: 'vibrant'},
-        colorFour: {value: result.darkVibrant!, name: 'darkVibrant'},
-        rawResult: JSON.stringify(result),
-      });
-    } else {
-      setColors({
-        colorOne: {value: result.background, name: 'background'},
-        colorTwo: {value: result.detail, name: 'detail'},
-        colorThree: {value: result.primary, name: 'primary'},
-        colorFour: {value: result.secondary, name: 'secondary'},
-        rawResult: JSON.stringify(result),
-      });
+      if (result.platform === 'android') {
+        setColors({
+          colorOne: {value: result.average!, name: 'average'},
+          colorTwo: {value: result.dominant!, name: 'dominant'},
+          colorThree: {value: result.vibrant!, name: 'vibrant'},
+          colorFour: {value: result.darkVibrant!, name: 'darkVibrant'},
+          rawResult: JSON.stringify(result),
+        });
+      } else {
+        setColors({
+          colorOne: {value: result.background, name: 'background'},
+          colorTwo: {value: result.detail, name: 'detail'},
+          colorThree: {value: result.primary, name: 'primary'},
+          colorFour: {value: result.secondary, name: 'secondary'},
+          rawResult: JSON.stringify(result),
+        });
+      }
+    } catch (error) {
+      return;
     }
     setLoading(false);
-  }, []);
+  }, [image]);
 
   useEffect(() => {
     fetchColors();
@@ -58,7 +62,11 @@ export default function BackgroundColors({image, children}: any) {
     <LinearGradient
       start={{x: 0, y: 0}}
       end={{x: 0, y: 0.5}}
-      colors={[colors.colorFour.value, theme.color.greyLightest]}
+      colors={
+        colors.colorFour
+          ? [colors.colorFour.value, theme.color.greyLightest]
+          : ['white', theme.color.greyLightest]
+      }
       style={styles.linearGradient}>
       {children}
     </LinearGradient>

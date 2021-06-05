@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Box, Text} from 'react-native-design-utility';
 
 interface MessageScreenProps {

@@ -53,6 +53,10 @@ export const PlayerContextProvider: React.FC = ({children}) => {
       }
       return;
     }
+
+    if (currentTrack && track.id !== currentTrack.id) {
+      await RNTrackPlayer.reset();
+    }
     await RNTrackPlayer.add([track]);
     setCurrentTrack(track);
     await RNTrackPlayer.play();

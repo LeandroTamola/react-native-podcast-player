@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Box, Text} from 'react-native-design-utility';
 import {RectButton} from 'react-native-gesture-handler';
 import {PodcastType} from '../types/types';
-import PodcastImage from './PodcastImage';
+import Thumbnail from './Thumbnail';
 
 export interface RowItemProps {
   item: PodcastType;
@@ -19,11 +19,11 @@ const RowItem = ({item}: RowItemProps) => {
         <Box
           h={70}
           w={70}
-          bg="blueLight"
+          bg="greyDark"
           radius={10}
           mr={10}
           style={styles.imgContainer}>
-          {item.thumbnail && <PodcastImage image={item.thumbnail} />}
+          <Thumbnail thumbnail={item.thumbnail} />
         </Box>
         <Box f={1}>
           <Text numberOfLines={1} bold>

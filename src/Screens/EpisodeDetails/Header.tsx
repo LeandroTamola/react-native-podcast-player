@@ -1,17 +1,18 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useEffect, useMemo, useState} from 'react';
-import {Image, ImageBackground, StyleSheet} from 'react-native';
-import ImageColors from 'react-native-image-colors';
+import React, {useMemo} from 'react';
+import {StyleSheet} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {Box, Text} from 'react-native-design-utility';
-import {RectButton, TouchableOpacity} from 'react-native-gesture-handler';
+import {RectButton} from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import Button from '../../components/Button';
 import {getDuration} from '../../utils';
-import BackgroundColors from '../../components/BackgroundColors';
 import {usePlayerContext} from '../../context/PlayerContext';
 import {FeedQuery_feed, SearchQuery_search} from '../../types/graphql';
+import {theme} from '../../constants/theme';
+import LinearGradient from 'react-native-linear-gradient';
+import Thumbnail from '../../components/Thumbnail';
 
 interface HeaderProps {
   episode: FeedQuery_feed;
@@ -25,7 +26,11 @@ const Header = ({episode, podcast}: HeaderProps) => {
   const playerContext = usePlayerContext();
 
   return (
-    <BackgroundColors image={episode.image}>
+    <LinearGradient
+      start={{x: 0, y: 0}}
+      end={{x: 0, y: 0.5}}
+      colors={['white', theme.color.greyLightest]}
+      style={styles.linearGradient}>
       <Box
         style={[styles.headerContainer, {paddingTop: hasNotch ? 50 : 10}]}
         paddingBottom="md">
@@ -42,7 +47,7 @@ const Header = ({episode, podcast}: HeaderProps) => {
             <FeatherIcon name="arrow-down" size={25} style={styles.icon} />
           </RectButton>
         </Box>
-        <Image source={{uri: episode.image!}} style={styles.image} />
+        <Thumbnail thumbnail={podcast.thumbnail} style={styles.image} />
         <Box
           alignItems="center"
           justifyContent="between"
@@ -53,11 +58,6 @@ const Header = ({episode, podcast}: HeaderProps) => {
           <Text bold marginTop="xs">
             {episode.title}
           </Text>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text marginTop="xs" size="sm">
-              {`${podcast.podcastName} >`}
-            </Text>
-          </TouchableOpacity>
         </Box>
         <Button
           style={{marginTop: 10, width: '75%'}}
@@ -65,7 +65,6 @@ const Header = ({episode, podcast}: HeaderProps) => {
           icon="play"
           onPress={() => {
             if (!episode) return;
-
             playerContext.play({
               title: episode.title,
               artwork: episode.image ?? podcast.thumbnail,
@@ -76,7 +75,7 @@ const Header = ({episode, podcast}: HeaderProps) => {
           }}
         />
       </Box>
-    </BackgroundColors>
+    </LinearGradient>
   );
 };
 
@@ -94,6 +93,8 @@ const styles = StyleSheet.create({
   image: {
     height: 150,
     width: 150,
-    borderRadius: 10,
+  },
+  linearGradient: {
+    flex: 1,
   },
 });
