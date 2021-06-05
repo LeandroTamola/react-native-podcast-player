@@ -42,19 +42,13 @@ const MiniPlayer = ({}: MiniPlayerProps) => {
         </Box>
       </Box>
       <Box mr="xs">
-        {PlayerContext.isPaused && (
+        {PlayerContext.isPaused ? (
           <TouchableOpacity onPress={() => PlayerContext.play()}>
             <FeatherIcon name="play" size={30} />
           </TouchableOpacity>
-        )}
-        {PlayerContext.isPlaying && (
+        ) : (
           <TouchableOpacity onPress={PlayerContext.pause}>
             <FeatherIcon name="pause" size={30} />
-          </TouchableOpacity>
-        )}
-        {PlayerContext.isStopped && (
-          <TouchableOpacity onPress={() => null}>
-            <FeatherIcon name="square" size={30} />
           </TouchableOpacity>
         )}
       </Box>

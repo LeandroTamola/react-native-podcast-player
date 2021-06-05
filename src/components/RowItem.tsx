@@ -1,16 +1,16 @@
 import {useNavigation} from '@react-navigation/core';
-import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import React, {memo} from 'react';
+import {StyleSheet} from 'react-native';
 import {Box, Text} from 'react-native-design-utility';
 import {RectButton} from 'react-native-gesture-handler';
 import {PodcastType} from '../types/types';
-import PodcastImage from './PodcastImage';
+import Thumbnail from './Thumbnail';
 
 export interface RowItemProps {
   item: PodcastType;
 }
 
-const RowItem = ({item}: RowItemProps) => {
+const RowItem = memo(({item}: RowItemProps) => {
   const navigation = useNavigation();
   return (
     <RectButton
@@ -19,17 +19,19 @@ const RowItem = ({item}: RowItemProps) => {
         <Box
           h={70}
           w={70}
-          bg="blueLight"
+          bg="greyDark"
           radius={10}
           mr={10}
           style={styles.imgContainer}>
-          {item.thumbnail && <PodcastImage image={item.thumbnail} />}
+          <Thumbnail thumbnail={item.thumbnail} />
         </Box>
         <Box f={1}>
           <Text numberOfLines={1} bold>
             {item.podcastName}
           </Text>
-          <Text size="xs">{item.artist}</Text>
+          <Text size="xs" numberOfLines={2}>
+            {item.artist}
+          </Text>
           <Text size="xs" color="blueLight">
             {item.episodesCount}
           </Text>
@@ -37,7 +39,7 @@ const RowItem = ({item}: RowItemProps) => {
       </Box>
     </RectButton>
   );
-};
+});
 
 export default RowItem;
 

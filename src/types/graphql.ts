@@ -8,11 +8,12 @@
 // ====================================================
 
 export interface FeedQuery_feed {
-  __typename: "FeedItem";
+  __typename: 'FeedItem';
   description: string;
   duration: string;
   image: string | null;
   linkUrl: string;
+  summary: string;
   pubDate: string;
   text: string;
   title: string;
@@ -36,7 +37,7 @@ export interface FeedQueryVariables {
 // ====================================================
 
 export interface SearchQuery_search {
-  __typename: "Podcast";
+  __typename: 'Podcast';
   artist: string;
   episodesCount: number;
   feedUrl: string;

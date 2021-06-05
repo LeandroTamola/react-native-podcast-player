@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet, TextInput, FlatList} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {Box} from 'react-native-design-utility';
@@ -28,6 +28,8 @@ const SearchScreen = ({}) => {
     }
   };
 
+  const KeyExtractor = useCallback((_, index) => String(index), []);
+
   return (
     <Box f={1} bg="white" paddingTop={hasNotch ? 40 : 0}>
       <Box h={50} w="100%" my="sm" px="sm">
@@ -51,19 +53,16 @@ const SearchScreen = ({}) => {
           />
         </Box>
       </Box>
-      {error ? (
-        <MessageScreen text={error.message} />
-      ) : (
+      {error && <MessageScreen text={error.message} />}
+      {loading && <LoadingScreen />}
+      {!loading && !data && <MessageScreen text={searchMessage} />}
+      {data && (
         <FlatList
           keyboardShouldPersistTaps="never"
           contentContainerStyle={styles.listContentContainer}
           data={data?.search ?? []}
           renderItem={item => <RowItem item={item.item} />}
-          keyExtractor={(_, index) => String(index)}
-          ListEmptyComponent={
-            <>{!loading && <MessageScreen text={searchMessage} />}</>
-          }
-          ListHeaderComponent={<>{loading && <LoadingScreen />}</>}
+          keyExtractor={KeyExtractor}
         />
       )}
     </Box>

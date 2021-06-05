@@ -1,8 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
 import {Box, Text} from 'react-native-design-utility';
 import PodcastImage from '../../components/PodcastImage';
-import {theme} from '../../constants/theme';
 import {SearchQuery_search} from '../../types/graphql';
 
 interface HeaderProps {
