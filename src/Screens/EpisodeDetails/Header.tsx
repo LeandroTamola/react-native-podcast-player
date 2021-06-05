@@ -41,10 +41,10 @@ const Header = ({episode, podcast}: HeaderProps) => {
           justifyContent="between"
           paddingHorizontal="sm">
           <RectButton onPress={() => navigation.goBack()} activeOpacity={0}>
-            <FeatherIcon name="arrow-left" size={25} style={styles.icon} />
+            <FeatherIcon name="arrow-left" size={25} />
           </RectButton>
           <RectButton onPress={() => true} activeOpacity={0}>
-            <FeatherIcon name="arrow-down" size={25} style={styles.icon} />
+            <FeatherIcon name="arrow-down" size={25} />
           </RectButton>
         </Box>
         <Thumbnail thumbnail={podcast.thumbnail} style={styles.image} />
@@ -86,9 +86,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  icon: {
-    color: 'white',
   },
   image: {
     height: 150,

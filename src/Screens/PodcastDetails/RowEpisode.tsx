@@ -29,8 +29,11 @@ const RowEpisode = ({item, podcastData}: RowEpisodeProps) => {
         <Text bold numberOfLines={2}>
           {item.title}
         </Text>
+
         <Text size="sm" color="greyDarkest" numberOfLines={2} mb="xs">
-          {removeHtmlTags(item.description)}
+          {item.summary
+            ? removeHtmlTags(item.summary)
+            : removeHtmlTags(item.description)}
         </Text>
         {item.linkUrl && (
           <TouchableOpacity
