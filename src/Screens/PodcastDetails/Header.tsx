@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Box, Text} from 'react-native-design-utility';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import PodcastImage from '../../components/PodcastImage';
+import DBContext from '../../context/DBContext';
+import {PodcastModel} from '../../models/PodcastModel';
 import {SearchQuery_search} from '../../types/graphql';
 
 interface HeaderProps {
@@ -8,6 +11,18 @@ interface HeaderProps {
 }
 
 const Header = ({podcastData}: HeaderProps) => {
+  const dbContext = useContext(DBContext);
+  const handleSubscribe = () => {
+    dbContext.subToPodcast(
+      new PodcastModel({
+        episodesCount: podcastData.episodesCount,
+        thumbnail: podcastData.thumbnail,
+        name: podcastData.podcastName,
+        artist: podcastData.artist,
+        feedUrl: podcastData.feedUrl,
+      }),
+    );
+  };
   return (
     <Box dir="row" alignItems="center" pb="md">
       <PodcastImage image={podcastData.thumbnail} />
@@ -18,9 +33,12 @@ const Header = ({podcastData}: HeaderProps) => {
         <Text size="xs" mb="xs">
           {podcastData.artist}
         </Text>
-        <Text size="xs" color="blueLight">
-          {podcastData.genres}
-        </Text>
+
+        <TouchableOpacity onPress={handleSubscribe}>
+          <Text size="xs" color="blueLight">
+            subscribe
+          </Text>
+        </TouchableOpacity>
       </Box>
     </Box>
   );
