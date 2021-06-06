@@ -23,7 +23,7 @@ const RowItem = memo(({item}: RowItemProps) => {
           radius={10}
           mr={10}
           style={styles.imgContainer}>
-          <Thumbnail thumbnail={item.thumbnail} />
+          <Thumbnail thumbnail={item.thumbnail} style={styles.image} />
         </Box>
         <Box f={1}>
           <Text numberOfLines={1} bold>
@@ -46,5 +46,9 @@ export default RowItem;
 const styles = StyleSheet.create({
   imgContainer: {
     overflow: 'hidden',
+  },
+  image: {
+    height: '100%',
+    width: '100%',
   },
 });
