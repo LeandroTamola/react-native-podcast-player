@@ -1,10 +1,12 @@
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, Dimensions} from 'react-native';
 import {Box, Text} from 'react-native-design-utility';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import ProgressSlider from '../../components/PlayerSlider';
+import {makeHitSlop} from '../../constants/metrics';
 import {theme} from '../../constants/theme';
 
 import {usePlayerContext} from '../../context/PlayerContext';
@@ -24,37 +26,37 @@ const PlayerScreen = ({}: PlayerScreenProps) => {
   const track = PlayerContext.currentTrack;
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Box f={1} width={width} alignItems="center">
-        <Box mb="md" style={styles.barIcon}>
+      <Box f={1} width={width} alignItems="center" justifyContent="around">
+        <Box
+          width="100%"
+          dir="row"
+          px="md"
+          alignItems="center"
+          justifyContent="between">
           <TouchableOpacity
             onPress={navigation.goBack}
-            hitSlop={{
-              top: 20,
-              right: 20,
-              bottom: 20,
-              left: 20,
-            }}></TouchableOpacity>
+            hitSlop={makeHitSlop(20)}>
+            <FeatherIcon name="chevron-down" size={30} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Queue')}
+            hitSlop={makeHitSlop(20)}>
+            <FeatherIcon name="list" size={30} />
+          </TouchableOpacity>
         </Box>
         <Box center mb="md">
-          <Image
-            source={{uri: track.artwork}}
-            style={{
-              width: PlayerContext.isPaused
-                ? width - theme.space.md * 4
-                : width - theme.space.md * 2,
-              height: PlayerContext.isPaused
-                ? width - theme.space.md * 4
-                : width - theme.space.md * 2,
-            }}
-          />
+          <Image source={{uri: track.artwork}} style={styles.image} />
         </Box>
         <Box px="md" center>
           <Text numberOfLines={1} bold size="lg">
             {track.title}
           </Text>
-          <Text numberOfLines={1} size="lg">
+          <Text numberOfLines={1} size="lg" color="purple">
             {track.artist}
           </Text>
+        </Box>
+        <Box width="90%">
+          <ProgressSlider />
         </Box>
         <Box
           width="100%"
@@ -63,7 +65,7 @@ const PlayerScreen = ({}: PlayerScreenProps) => {
           justifyContent="around"
           alignItems="center">
           <TouchableOpacity onPress={() => PlayerContext.seekTo(-15)}>
-            <FeatherIcon name="rotate-ccw" size={50} />
+            <FeatherIcon name="rotate-ccw" size={40} />
           </TouchableOpacity>
           {PlayerContext.isPaused ? (
             <TouchableOpacity onPress={() => PlayerContext.play()}>
@@ -75,10 +77,9 @@ const PlayerScreen = ({}: PlayerScreenProps) => {
             </TouchableOpacity>
           )}
           <TouchableOpacity onPress={() => PlayerContext.seekTo()}>
-            <FeatherIcon name="rotate-cw" size={50} />
+            <FeatherIcon name="rotate-cw" size={40} />
           </TouchableOpacity>
         </Box>
-        <Box></Box>
       </Box>
     </SafeAreaView>
   );
@@ -95,6 +96,8 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 10,
+    width: width - theme.space.md * 2,
+    height: width - theme.space.md * 2,
   },
   safeArea: {
     flex: 1,

@@ -36,29 +36,55 @@ const RowEpisode = ({item, podcastData}: RowEpisodeProps) => {
             : removeHtmlTags(item.description)}
         </Text>
         {item.linkUrl && (
-          <TouchableOpacity
-            onPress={() => {
-              playerContext.play({
-                title: item.title,
-                artwork: item.image ?? podcastData.thumbnail,
-                id: item.linkUrl,
-                url: item.linkUrl,
-                artist: podcastData.artist,
-              });
-            }}>
-            <Box dir="row" alignItems="center">
-              <Box
-                backgroundColor="purple"
-                marginRight="xs"
-                padding={3}
-                borderRadius={10}>
-                <FeatherIcon name="play" size={15} color="white" />
+          <Box dir="row" alignItems="center" justify="between">
+            <TouchableOpacity
+              onPress={() => {
+                playerContext.play({
+                  title: item.title,
+                  artwork: item.image ?? podcastData.thumbnail,
+                  id: item.linkUrl,
+                  url: item.linkUrl,
+                  artist: podcastData.artist,
+                });
+              }}>
+              <Box dir="row" alignItems="center">
+                <Box
+                  backgroundColor="purple"
+                  marginRight="xs"
+                  padding={4}
+                  borderRadius={15}>
+                  <FeatherIcon name="play" size={15} color="white" />
+                </Box>
+                <Text size="xs" color="purple">
+                  {getDuration(item.duration)}
+                </Text>
               </Box>
-              <Text size="xs" color="purple">
-                {getDuration(item.duration)}
-              </Text>
-            </Box>
-          </TouchableOpacity>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                playerContext.addToQueue({
+                  title: item.title,
+                  artwork: item.image ?? podcastData.thumbnail,
+                  id: item.linkUrl,
+                  url: item.linkUrl,
+                  artist: podcastData.artist,
+                });
+              }}>
+              <Box dir="row" alignItems="center">
+                <Box
+                  backgroundColor="purple"
+                  marginRight="xs"
+                  padding={4}
+                  borderRadius={15}>
+                  <FeatherIcon
+                    name="corner-down-right"
+                    size={15}
+                    color="white"
+                  />
+                </Box>
+              </Box>
+            </TouchableOpacity>
+          </Box>
         )}
       </Box>
     </RectButton>
