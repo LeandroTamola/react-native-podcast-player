@@ -1,3 +1,4 @@
+import {closestIndexTo} from 'date-fns/fp';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import RNTrackPlayer, {
   State as TrackPlayerState,
@@ -14,8 +15,10 @@ interface PlayerContextType {
   isEmpty: boolean;
   currentTrack: Track | null;
   play: (track?: Track) => void;
+  addToQueue: (track: Track) => void;
   pause: () => void;
   seekTo: (amount?: number | undefined) => void;
+  goTo: (amount: number) => void;
 }
 
 export const PlayerContext = createContext<PlayerContextType>({
@@ -25,8 +28,10 @@ export const PlayerContext = createContext<PlayerContextType>({
   isEmpty: true,
   currentTrack: null,
   play: () => null,
+  addToQueue: () => null,
   pause: () => null,
   seekTo: () => null,
+  goTo: () => null,
 });
 
 export const PlayerContextProvider: React.FC = ({children}) => {
@@ -54,12 +59,18 @@ export const PlayerContextProvider: React.FC = ({children}) => {
       return;
     }
 
-    if (currentTrack && track.id !== currentTrack.id) {
-      await RNTrackPlayer.reset();
+    if (currentTrack && track.id === currentTrack.id) {
+      await RNTrackPlayer.play();
+      return;
     }
+
     await RNTrackPlayer.add([track]);
     setCurrentTrack(track);
     await RNTrackPlayer.play();
+  };
+
+  const addToQueue = async (track: Track) => {
+    await RNTrackPlayer.add([track]);
   };
 
   const pause = async () => {
@@ -71,6 +82,10 @@ export const PlayerContextProvider: React.FC = ({children}) => {
     await RNTrackPlayer.seekTo(position + amount);
   };
 
+  const goTo = async (amount: number) => {
+    await RNTrackPlayer.seekTo(amount);
+  };
+
   const value: PlayerContextType = {
     isPlaying: playerState === STATE_PLAYING,
     isPaused: playerState === STATE_PAUSED,
@@ -78,8 +93,10 @@ export const PlayerContextProvider: React.FC = ({children}) => {
     isEmpty: playerState === null,
     currentTrack,
     play,
+    addToQueue,
     pause,
     seekTo,
+    goTo,
   };
 
   return (

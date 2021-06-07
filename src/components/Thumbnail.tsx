@@ -10,7 +10,7 @@ interface ThumbnailProps {
 
 const Thumbnail = ({thumbnail, style}: ThumbnailProps) => {
   return !thumbnail ? (
-    <Image source={thumbnailImg} style={styles.image} />
+    <Image source={thumbnailImg} style={[styles.image, style]} />
   ) : (
     <Image source={{uri: thumbnail}} style={[styles.image, style]} />
   );

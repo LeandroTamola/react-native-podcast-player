@@ -3,7 +3,7 @@ import React, {useMemo} from 'react';
 import {StyleSheet} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {Box, Text} from 'react-native-design-utility';
-import {RectButton} from 'react-native-gesture-handler';
+import {RectButton, TouchableOpacity} from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import Button from '../../components/Button';
@@ -43,9 +43,20 @@ const Header = ({episode, podcast}: HeaderProps) => {
           <RectButton onPress={() => navigation.goBack()} activeOpacity={0}>
             <FeatherIcon name="arrow-left" size={25} />
           </RectButton>
-          <RectButton onPress={() => true} activeOpacity={0}>
-            <FeatherIcon name="arrow-down" size={25} />
-          </RectButton>
+          <TouchableOpacity
+            onPress={() => {
+              playerContext.addToQueue({
+                title: episode.title,
+                artwork: episode.image ?? podcast.thumbnail,
+                id: episode.linkUrl,
+                url: episode.linkUrl,
+                artist: podcast.artist,
+              });
+            }}>
+            <Box dir="row" alignItems="center">
+              <FeatherIcon name="corner-down-right" size={25} />
+            </Box>
+          </TouchableOpacity>
         </Box>
         <Thumbnail thumbnail={podcast.thumbnail} style={styles.image} />
         <Box
