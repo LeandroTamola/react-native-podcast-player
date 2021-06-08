@@ -23,6 +23,14 @@ const Header = ({podcastData}: HeaderProps) => {
       }),
     );
   };
+  // const toggleSubscribed = (podcast: any) => {
+  //   console.log(dbContext.podcasts.includes(podcast));
+  // };
+
+  // useEffect(() => {
+  //   setIsSubscribed(toggleSubscribed(podcastData));
+  //   console.log(dbContext.podcasts);
+  // }, [dbContext]);
   return (
     <Box dir="row" alignItems="center" pb="md">
       <PodcastImage image={podcastData.thumbnail} />

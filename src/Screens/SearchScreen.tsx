@@ -14,7 +14,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import {RectButton} from 'react-native-gesture-handler';
 
 let hasNotch = DeviceInfo.hasNotch();
-const searchMessage = 'No Podcasts, please search something';
+const searchMessage = 'Please search something';
 const SearchScreen = ({}) => {
   const [term, setTerm] = useState<string>('');
   const [search, {data, loading, error}] =

@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {Box, Text} from 'react-native-design-utility';
 
 interface MessageScreenProps {
@@ -8,12 +7,12 @@ interface MessageScreenProps {
 
 const MessageScreen = ({text}: MessageScreenProps) => {
   return (
-    <Box flex={1} center>
-      <Text color="grey">{text}</Text>
+    <Box flex={1} center bg="white">
+      <Text size="lg" color="gray">
+        {text}
+      </Text>
     </Box>
   );
 };
 
 export default MessageScreen;
-
-const styles = StyleSheet.create({});

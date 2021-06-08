@@ -12,7 +12,7 @@ const QueueRow = ({item}: QueueRowProps) => {
   return (
     <Box h={90} dir="row" alignItems="center">
       <Thumbnail thumbnail={item.artwork} style={styles.image} />
-      <Box ml="md">
+      <Box ml="xs">
         <Text bold numberOfLines={2}>
           {item.title}
         </Text>
