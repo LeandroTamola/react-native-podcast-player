@@ -19,7 +19,7 @@ const SearchStackNavigator = () => {
         component={SearchScreen}
       />
       <SearchStack.Screen
-        options={{title: ''}}
+        options={{headerShown: false}}
         name="PodcastDetails"
         component={PodcastDetailsScreen}
       />

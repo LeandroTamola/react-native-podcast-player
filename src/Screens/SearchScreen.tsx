@@ -14,7 +14,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import {RectButton} from 'react-native-gesture-handler';
 
 let hasNotch = DeviceInfo.hasNotch();
-const searchMessage = 'No Podcasts, please search something';
+const searchMessage = 'Please search something';
 const SearchScreen = ({}) => {
   const [term, setTerm] = useState<string>('');
   const [search, {data, loading, error}] =
@@ -53,9 +53,9 @@ const SearchScreen = ({}) => {
           />
         </Box>
       </Box>
-      {error && <MessageScreen text={error.message} />}
+      {error && <MessageScreen body={error.message} />}
       {loading && <LoadingScreen />}
-      {!loading && !data && <MessageScreen text={searchMessage} />}
+      {!loading && !data && <MessageScreen body={searchMessage} />}
       {data && (
         <FlatList
           keyboardShouldPersistTaps="never"

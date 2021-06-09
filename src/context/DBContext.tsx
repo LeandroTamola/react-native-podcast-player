@@ -7,11 +7,13 @@ import {SQliteServices} from '../services/sqliteServices';
 interface DBContextProps {
   podcasts: PodcastModel[];
   subToPodcast: (podcast: PodcastModel) => Promise<void>;
+  unsubToPodcast: (feedUrl: string) => Promise<void>;
 }
 
 export const DBContext = createContext<DBContextProps>({
   podcasts: [],
   subToPodcast: () => Promise.resolve(),
+  unsubToPodcast: () => Promise.resolve(),
 });
 
 export const DBProvider: React.FC = ({children}) => {
@@ -31,7 +33,7 @@ export const DBProvider: React.FC = ({children}) => {
         }
       })();
     }
-  }, [db.current?.isReady]);
+  }, [db.current, podcasts]);
 
   const subToPodcast = async (podcast: PodcastModel) => {
     if (db.current) {
@@ -41,9 +43,18 @@ export const DBProvider: React.FC = ({children}) => {
     }
   };
 
+  const unsubToPodcast = async (feedUrl: string) => {
+    if (db.current) {
+      await db.current.unsubscribeToPodcast(feedUrl);
+      const _podcasts = await db.current.getAllPodcast();
+      setPodcasts(_podcasts);
+    }
+  };
+
   const value: DBContextProps = {
     podcasts,
     subToPodcast,
+    unsubToPodcast,
   };
   return <DBContext.Provider value={value}>{children}</DBContext.Provider>;
 };
