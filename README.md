@@ -62,8 +62,9 @@ yarn android
 
 No copyright infringement intended, this app was developed just for didactics and it should not be used for commercial purposes
 
-## Demo video
+## Demo
 
+<img src="https://user-images.githubusercontent.com/67109855/121395370-bbb4df80-c928-11eb-9221-a7fb8668d46a.gif" width="468" height="1012"/>
 
 
 
