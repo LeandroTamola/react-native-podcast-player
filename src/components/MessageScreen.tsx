@@ -2,14 +2,18 @@ import React from 'react';
 import {Box, Text} from 'react-native-design-utility';
 
 interface MessageScreenProps {
-  text: string;
+  title?: string;
+  body?: string;
 }
 
-const MessageScreen = ({text}: MessageScreenProps) => {
+const MessageScreen = ({title, body}: MessageScreenProps) => {
   return (
-    <Box flex={1} center bg="white">
-      <Text size="lg" color="gray">
-        {text}
+    <Box flex={1} center bg="white" px="md">
+      <Text center size="lg" bold>
+        {title}
+      </Text>
+      <Text center size="sm" color="gray">
+        {body}
       </Text>
     </Box>
   );

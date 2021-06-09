@@ -53,9 +53,9 @@ const SearchScreen = ({}) => {
           />
         </Box>
       </Box>
-      {error && <MessageScreen text={error.message} />}
+      {error && <MessageScreen body={error.message} />}
       {loading && <LoadingScreen />}
-      {!loading && !data && <MessageScreen text={searchMessage} />}
+      {!loading && !data && <MessageScreen body={searchMessage} />}
       {data && (
         <FlatList
           keyboardShouldPersistTaps="never"

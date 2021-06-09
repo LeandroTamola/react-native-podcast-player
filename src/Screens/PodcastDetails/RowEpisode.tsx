@@ -16,6 +16,7 @@ interface RowEpisodeProps {
 const RowEpisode = ({item, podcastData}: RowEpisodeProps) => {
   const {navigate} = useNavigation();
   const playerContext = usePlayerContext();
+
   return (
     <RectButton
       activeOpacity={0}
@@ -29,7 +30,6 @@ const RowEpisode = ({item, podcastData}: RowEpisodeProps) => {
         <Text bold numberOfLines={2}>
           {item.title}
         </Text>
-
         <Text size="sm" color="greyDarkest" numberOfLines={2} mb="xs">
           {item.summary
             ? removeHtmlTags(item.summary)

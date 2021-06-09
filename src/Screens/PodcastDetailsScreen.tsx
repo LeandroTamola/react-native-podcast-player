@@ -1,4 +1,4 @@
-import {RouteProp, useRoute} from '@react-navigation/core';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/core';
 import React, {useCallback} from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -20,6 +20,7 @@ type NavigationParams = RouteProp<SearchStackRouteParamsList, 'PodcastDetails'>;
 
 const PodcastDetailsScreen = () => {
   const playerContext = usePlayerContext();
+  const navigation = useNavigation();
   const {data: podcastData} = useRoute<NavigationParams>().params ?? {};
   const {data, loading} = useQuery<FeedQuery, FeedQueryVariables>(feedQuery, {
     variables: {feedUrl: podcastData.feedUrl},
@@ -40,7 +41,7 @@ const PodcastDetailsScreen = () => {
 
   return (
     <Box f={1} padding="xs" bg="white" backgroundColor="white">
-      <Header {...{podcastData}} />
+      <Header {...{podcastData}} onPressLeft={navigation.goBack} />
       <Box
         dir="row"
         alignItems="center"
@@ -80,7 +81,10 @@ const PodcastDetailsScreen = () => {
       {loading && <LoadingScreen />}
 
       {!data && !loading && (
-        <MessageScreen text="There is no available podcast for this show" />
+        <MessageScreen
+          title="Oops, something went wrong"
+          body="There is no available podcast for this show"
+        />
       )}
       {data && (
         <FlatList

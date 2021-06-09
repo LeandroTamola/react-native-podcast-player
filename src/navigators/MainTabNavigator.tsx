@@ -50,7 +50,7 @@ const MainTabNavigator = () => {
           tabBarIcon: props => (
             <FeatherIcon
               color={props.color}
-              name="headphones"
+              name="corner-down-right"
               size={ICON_SIZE}
             />
           ),

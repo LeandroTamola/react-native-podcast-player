@@ -5,19 +5,19 @@ import {Box, Text} from 'react-native-design-utility';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import NavigationHeader from '../../components/NavigationHeader';
 import PodcastImage from '../../components/PodcastImage';
-import {hasNotch} from '../../constants/metrics';
 import DBContext from '../../context/DBContext';
 import {PodcastModel} from '../../models/PodcastModel';
 import {SearchQuery_search} from '../../types/graphql';
 
 interface HeaderProps {
   podcastData: SearchQuery_search;
+  onPressLeft: () => void;
 }
 
-const Header = ({podcastData}: HeaderProps) => {
+const Header = ({podcastData, onPressLeft}: HeaderProps) => {
   const dbContext = useContext(DBContext);
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const {goBack} = useNavigation();
+  const {navigate} = useNavigation();
 
   const handleIsSubscribed = useCallback(
     (feedUrl: string) => {
@@ -55,7 +55,7 @@ const Header = ({podcastData}: HeaderProps) => {
       <NavigationHeader
         left="Back"
         iconLeft="arrow-left"
-        onPressLeft={goBack}
+        onPressLeft={onPressLeft}
       />
       <Box dir="row" alignItems="center" pb="md">
         <PodcastImage image={podcastData.thumbnail} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Box, Text} from 'react-native-design-utility';
-import {RectButton, TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import {hasNotch} from '../constants/metrics';
@@ -49,9 +49,9 @@ const NavigationHeader = ({
         </Box>
       </TouchableOpacity>
       <Box>
-        <Text>{title}</Text>
+        <Text bold>{title}</Text>
       </Box>
-      <TouchableOpacity onPress={onPressLeft}>
+      <TouchableOpacity onPress={onPressRight}>
         <Box dir="row" alignItems="center" justifyContent="center">
           {iconRight && (
             <FeatherIcon

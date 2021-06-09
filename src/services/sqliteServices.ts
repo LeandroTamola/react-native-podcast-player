@@ -14,7 +14,6 @@ export class SQliteServices implements IDatabaseContract {
         location: 'Documents',
       },
       () => {
-        console.log('sQlite database connect');
         this.init();
       },
       err => {
@@ -58,7 +57,6 @@ export class SQliteServices implements IDatabaseContract {
                 }),
               );
             }
-
             resolve(podcasts);
           },
           (_, err) => {
@@ -86,6 +84,24 @@ export class SQliteServices implements IDatabaseContract {
           },
           (_, err) => {
             console.log('error insert podcast', err);
+            reject(err);
+          },
+        );
+      });
+    });
+  }
+
+  public unsubscribeToPodcast(feedUrl: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this._db.transaction(tx => {
+        tx.executeSql(
+          'DELETE FROM podcasts WHERE feed_url = ?',
+          [feedUrl],
+          () => {
+            console.log(`${feedUrl} was deleted`);
+          },
+          (_, err) => {
+            console.log(`${feedUrl} couldn't be deleted`, err);
             reject(err);
           },
         );
