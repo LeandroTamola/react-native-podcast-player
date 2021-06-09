@@ -37,7 +37,7 @@ const MiniPlayer = ({}: MiniPlayerProps) => {
             style={styles.imageContainer}>
             <Image
               source={{uri: PlayerContext.currentTrack.artwork}}
-              style={{flex: 1}}
+              style={styles.image}
             />
           </Box>
           <Box flex={1} marginRight="xs">
@@ -74,5 +74,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     overflow: 'hidden',
+  },
+  image: {
+    flex: 1,
   },
 });

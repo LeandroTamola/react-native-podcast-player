@@ -28,7 +28,7 @@ const Header = ({podcastData, onPressLeft}: HeaderProps) => {
   const handleIsSubscribed = useCallback(
     (feedUrl: string) => {
       const index = dbContext.podcasts.findIndex(
-        item => item.feedUrl == feedUrl,
+        item => item.feedUrl === feedUrl,
       );
       if (index !== -1) {
         return true;

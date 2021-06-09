@@ -1,9 +1,6 @@
 import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
-import {
-  RectButton,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import LottieView from 'lottie-react-native';
 
 interface LikeAnimationProps {
@@ -34,7 +31,7 @@ const LikeAnimation = ({
     } else {
       animation.current.play(0, 19);
     }
-  }, [isSubscribed]);
+  }, [isSubscribed, animation, isFirstRun]);
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <LottieView

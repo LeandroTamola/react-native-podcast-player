@@ -1,5 +1,3 @@
-import {useCallback} from 'react';
-
-const KeyExtractor = useCallback((_, index) => String(index), []);
+const KeyExtractor = (_: undefined, index: number) => String(index);
 
 export default KeyExtractor;

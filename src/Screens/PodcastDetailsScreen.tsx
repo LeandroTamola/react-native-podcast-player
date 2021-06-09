@@ -28,7 +28,7 @@ const PodcastDetailsScreen = () => {
 
   const handleRenderItem = useCallback(
     ({item}) => <RowEpisode item={item} {...{podcastData}} />,
-    [],
+    [podcastData],
   );
 
   const KeyExtractor = useCallback((_, index) => String(index), []);

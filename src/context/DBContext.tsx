@@ -25,15 +25,13 @@ export const DBProvider: React.FC = ({children}) => {
   }, []);
 
   useEffect(() => {
-    // if (db.current?.isReady) {
     (async () => {
       if (db.current) {
         const _podcasts = await db.current.getAllPodcast();
         setPodcasts(_podcasts);
       }
     })();
-    // }
-  }, [db.current, podcasts]);
+  }, [podcasts]);
 
   const subToPodcast = async (podcast: PodcastModel) => {
     if (db.current) {

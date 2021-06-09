@@ -1,5 +1,3 @@
-import ImageColors from 'react-native-image-colors';
-
 export const removeHtmlTags = (string: string) => {
   return string.replace(/<[^>]*>/g, '').trim();
 };
@@ -18,11 +16,10 @@ export const getDuration = (string: string) => {
 
 export function buildTime(totalSeconds: number): string {
   const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-  // +totalSeconds %= 3600;
   const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
   const seconds = String(Math.floor(totalSeconds % 60)).padStart(2, '0');
 
-  if (hours != '00') {
+  if (hours !== '00') {
     return `${hours}:${minutes}:${seconds}`;
   }
   return `${minutes}:${seconds}`;

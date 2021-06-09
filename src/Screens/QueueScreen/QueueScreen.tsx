@@ -1,5 +1,4 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/core';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Box} from 'react-native-design-utility';
 import {FlatList} from 'react-native-gesture-handler';
 import RNTrackPlayer from 'react-native-track-player';
@@ -16,16 +15,14 @@ const QueueScreen = ({}: QueueScreenProps) => {
 
   const {removeFromQueue} = usePlayerContext();
 
-  const getQueue = async () => {
+  const getQueue = useCallback(async () => {
     const tracks = await RNTrackPlayer.getQueue();
     setQueue(tracks);
-  };
+  }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      getQueue();
-    }, [queue]),
-  );
+  useEffect(() => {
+    getQueue();
+  }, [queue]);
 
   if (!queue.length) {
     return (

@@ -23,8 +23,8 @@ const SearchScreen = ({}) => {
   const onSearch = async () => {
     try {
       await search({variables: {term}});
-    } catch (error) {
-      console.log('error', error);
+    } catch (err) {
+      console.log('error', err);
     }
   };
 

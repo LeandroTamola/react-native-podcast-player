@@ -2,6 +2,7 @@ import React from 'react';
 import {ProgressComponent} from 'react-native-track-player';
 import Slider from '@react-native-community/slider';
 import {Box, Text} from 'react-native-design-utility';
+import {StyleSheet} from 'react-native';
 
 import {theme} from '../constants/theme';
 import {buildTime} from '../utils';
@@ -21,7 +22,7 @@ class ProgressSlider extends ProgressComponent {
     return (
       <>
         <Slider
-          style={{width: '100%', height: 40}}
+          style={styles.slider}
           minimumValue={0}
           maximumValue={this.state.duration}
           value={this.state.position}
@@ -41,3 +42,7 @@ class ProgressSlider extends ProgressComponent {
 }
 
 export default ProgressSlider;
+
+const styles = StyleSheet.create({
+  slider: {width: '100%', height: 40},
+});

@@ -5,11 +5,16 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "ios:tablet": "yarn ios --simulator='iPad Pro (9.7-inch)'",
     "start": "react-native start",
+    "setup": "yarn install && cd ios && pod install && cd ..",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "yarn lint --fix",
     "codegen": "apollo service:download --endpoint=https://frozen-river-77426.herokuapp.com/query && apollo client:codegen src/types/graphql.ts --includes='src/**/*.ts' --localSchemaFile=schema.json --outputFlat --target=typescript",
-    "postinstall": "npx typesync"
+    "postinstall": "npx typesync",
+    "type-check": "tsc -p ./tsconfig.json --skipLibCheck",
+    "type-check:staged": "node scripts/typescript-check-staged-files.js"
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
