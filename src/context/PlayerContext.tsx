@@ -1,4 +1,3 @@
-import {closestIndexTo} from 'date-fns/fp';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import RNTrackPlayer, {
   State as TrackPlayerState,
@@ -16,6 +15,7 @@ interface PlayerContextType {
   currentTrack: Track | null;
   play: (track?: Track) => void;
   addToQueue: (track: Track) => void;
+  removeFromQueue: (trackId: string) => void;
   pause: () => void;
   seekTo: (amount?: number | undefined) => void;
   goTo: (amount: number) => void;
@@ -29,6 +29,7 @@ export const PlayerContext = createContext<PlayerContextType>({
   currentTrack: null,
   play: () => null,
   addToQueue: () => null,
+  removeFromQueue: () => null,
   pause: () => null,
   seekTo: () => null,
   goTo: () => null,
@@ -70,7 +71,20 @@ export const PlayerContextProvider: React.FC = ({children}) => {
   };
 
   const addToQueue = async (track: Track) => {
+    const queue = await RNTrackPlayer.getQueue();
+    if (queue.find(item => item.id === track.id)) {
+      return;
+    }
     await RNTrackPlayer.add([track]);
+  };
+
+  const removeFromQueue = async (trackId: string) => {
+    if (currentTrack && currentTrack.id === trackId) {
+      await RNTrackPlayer.remove(trackId);
+      setCurrentTrack(null);
+      return;
+    }
+    await RNTrackPlayer.remove(trackId);
   };
 
   const pause = async () => {
@@ -94,6 +108,7 @@ export const PlayerContextProvider: React.FC = ({children}) => {
     currentTrack,
     play,
     addToQueue,
+    removeFromQueue,
     pause,
     seekTo,
     goTo,
