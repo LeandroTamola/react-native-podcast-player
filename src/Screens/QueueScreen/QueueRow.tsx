@@ -5,6 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import RNTrackPlayer from 'react-native-track-player';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Thumbnail from '../../components/Thumbnail';
+import {makeHitSlop} from '../../constants/metrics';
 
 interface QueueRowProps {
   item: RNTrackPlayer.Track;
@@ -23,7 +24,7 @@ const QueueRow = ({item, removeFromQueue}: QueueRowProps) => {
           {item.artist}
         </Text>
       </Box>
-      <TouchableOpacity onPress={removeFromQueue}>
+      <TouchableOpacity onPress={removeFromQueue} hitSlop={makeHitSlop(20)}>
         <FeatherIcon name="trash" size={20} color="black" />
       </TouchableOpacity>
     </Box>

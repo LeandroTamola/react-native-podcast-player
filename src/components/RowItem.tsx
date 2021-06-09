@@ -4,6 +4,7 @@ import {StyleSheet} from 'react-native';
 import {Box, Text} from 'react-native-design-utility';
 import {RectButton, TouchableOpacity} from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import {makeHitSlop} from '../constants/metrics';
 import DBContext from '../context/DBContext';
 import {PodcastType} from '../types/types';
 import Thumbnail from './Thumbnail';
@@ -43,7 +44,8 @@ const RowItem = memo(({item, isRemovable}: RowItemProps) => {
         <Box>
           {isRemovable && (
             <TouchableOpacity
-              onPress={() => dbContext.unsubToPodcast(item.feedUrl)}>
+              onPress={() => dbContext.unsubToPodcast(item.feedUrl)}
+              hitSlop={makeHitSlop(20)}>
               <FeatherIcon name="trash" size={20} />
             </TouchableOpacity>
           )}
