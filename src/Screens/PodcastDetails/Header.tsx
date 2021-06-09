@@ -1,13 +1,18 @@
-import {useNavigation} from '@react-navigation/core';
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {Box, Text} from 'react-native-design-utility';
 
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import NavigationHeader from '../../components/NavigationHeader';
 import PodcastImage from '../../components/PodcastImage';
 import DBContext from '../../context/DBContext';
 import {PodcastModel} from '../../models/PodcastModel';
 import {SearchQuery_search} from '../../types/graphql';
+import LikeAnimation from '../../components/LikeAnimation';
 
 interface HeaderProps {
   podcastData: SearchQuery_search;
@@ -17,7 +22,8 @@ interface HeaderProps {
 const Header = ({podcastData, onPressLeft}: HeaderProps) => {
   const dbContext = useContext(DBContext);
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const {navigate} = useNavigation();
+  const animation = useRef(null);
+  const isFirstRun = useRef(true);
 
   const handleIsSubscribed = useCallback(
     (feedUrl: string) => {
@@ -44,6 +50,10 @@ const Header = ({podcastData, onPressLeft}: HeaderProps) => {
           feedUrl: podcastData.feedUrl,
         }),
       );
+      setIsSubscribed(true);
+    } else {
+      dbContext.unsubToPodcast(podcastData.feedUrl);
+      setIsSubscribed(false);
     }
   };
 
@@ -66,13 +76,10 @@ const Header = ({podcastData, onPressLeft}: HeaderProps) => {
           <Text size="xs" mb="xs">
             {podcastData.artist}
           </Text>
-
-          <TouchableOpacity
-            onPress={() => handleSubscribe(podcastData.feedUrl)}>
-            <Text size="xs" color="blueLight">
-              {isSubscribed ? 'Subscribed' : 'Not Subscribed'}
-            </Text>
-          </TouchableOpacity>
+          <LikeAnimation
+            onPress={() => handleSubscribe(podcastData.feedUrl)}
+            {...{isFirstRun, animation, isSubscribed}}
+          />
         </Box>
       </Box>
     </>

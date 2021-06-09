@@ -22,6 +22,8 @@
     "apollo-boost": "^0.4.9",
     "date-fns": "^2.22.1",
     "graphql": "^15.5.0",
+    "lottie-ios": "3.1.8",
+    "lottie-react-native": "^4.0.2",
     "react": "17.0.1",
     "react-native": "0.64.1",
     "react-native-design-utility": "^2.0.4",
