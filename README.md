@@ -28,7 +28,7 @@ Please visit https://reactnative.dev/docs/environment-setup for more info
 _Use Yarn in order to install dependencies_
 
 ```
-yarn
+yarn && cd ios && pod install && cd ..
 ```
 
 _Now you can start the app by using one of this three commands_
